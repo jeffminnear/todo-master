@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
+  TextInput,
   View
 } from 'react-native';
 
 module.exports = React.createClass({
   getInitialState() {
     return ({
-      tasks: ['Take out the trash', 'Get groceries', 'Practice piano']
+      tasks: ['Take out the trash', 'Get groceries', 'Practice piano'],
+      task: ''
     })
   },
 
@@ -27,12 +29,28 @@ module.exports = React.createClass({
     )
   },
 
+  addTask() {
+    let tasks = this.state.tasks.concat([this.state.task]);
+    this.setState({tasks});
+  },
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
           ToDo Master
         </Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Add a task...'
+          onChangeText={(text) => {
+            this.setState({task: text});
+            console.log(this.state.task);
+          }}
+          onEndEditing={()=> {
+            this.addTask();
+          }}
+        />
         {this.renderList(this.state.tasks)}
       </View>
     );
@@ -51,9 +69,17 @@ const styles = StyleSheet.create({
   },
   task: {
     height: 60,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  input: {
+    height: 60,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: 'black',
+    textAlign: 'center',
+    margin: 10
+  },
 })
