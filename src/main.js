@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 
 module.exports = React.createClass({
@@ -17,16 +18,30 @@ module.exports = React.createClass({
   renderList(tasks) {
     // return individual rows based on the argued tasks
     return(
-      tasks.map((task) => {
+      tasks.map((task, index) => {
         return (
           <View key={task} style={styles.task}>
             <Text>
               {task}
             </Text>
+            <TouchableOpacity
+              onPress={()=>this.completeTask(index)}
+            >
+              <Text>
+                &#10003;
+              </Text>
+            </TouchableOpacity>
           </View>
         )
       })
     )
+  },
+
+  completeTask(index) {
+    console.log('complete task: ', this.state.tasks[index]);
+    let tasks = this.state.tasks;
+    tasks = tasks.slice(0, index).concat(tasks.slice(index + 1));
+    this.setState({tasks});
   },
 
   addTask() {
