@@ -8,7 +8,7 @@ import {
 module.exports = React.createClass({
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>
           ToDo Master
         </Text>
@@ -16,3 +16,11 @@ module.exports = React.createClass({
     );
   }
 });
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
